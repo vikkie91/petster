@@ -255,7 +255,7 @@ GROUP BY
 
 ### Insights & Action  
 - As an example, we see that out of the 8 patients who made their subsequent visit with Dr.Emma Glacer, only 2 of them had made their initial visit with her. The remaining 6 had their inital visit with another vet
-- Since switched visits are much higher than retained visits for all vets, this gives us the opportunity to understand if there is an issue of vet availability during re-booking or any other issue preventing them from going back to the same vet  
+- Since switched visits are much higher than retained visits for most vets, this gives us the opportunity to understand if there is an issue of vet availability during re-booking or any other issue preventing them from going back to the same vet  
 
 Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
   
