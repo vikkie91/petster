@@ -129,11 +129,364 @@ ALTER TABLE pet.visits
  ![ER Diagram](https://user-images.githubusercontent.com/99361886/157273292-3178b14d-a865-4cf8-8afe-a5d5ae55e15a.png)
 
 ## Vet Analysis  
-   
+
+-- Q1) Which vet has the highest vists and largest customer base?
+  
+```sql  
+SELECT
+	concat(ve.vet_first_name,' ',ve.vet_last_name)as Vet_Name,
+	count(vi.visit_id) as "Total Visits",
+	count(distinct cu.customer_id) as "Customer Base"
+FROM
+	pet.visits as vi
+INNER JOIN
+	pet.vets as ve
+ON
+	ve.vet_id = vi.vet_id
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+INNER JOIN
+	pet.customers  as cu
+ON
+	pe.owner_id = cu.customer_id
+	
+GROUP BY
+	1
+ORDER BY
+	2 DESC,3 DESC
+LIMIT 1
+;
+  
+```
+
+-- Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
+  
+```sql
+SELECT 
+	vet_id,
+	vet_first_name||' '||vet_last_name as Vet_Name,
+	count(case when visit_rank = 1 then 1 else null end)  as New_Customer_Count,
+	concat(round(100*cast(count(case when visit_rank = 1 then 1 else null end) as decimal)/(count(case when visit_rank = 1 then 1 else null end) + count(case when visit_rank > 1 then 1 else null end)),2),'%')  as New_Customer_Pct,
+	count(case when visit_rank > 1 then 1 else null end)  as Returning_Customers,
+	concat(round(100*cast(count(case when visit_rank > 1 then 1 else null end) as decimal)/(count(case when visit_rank = 1 then 1 else null end) + count(case when visit_rank > 1 then 1 else null end)),2),'%')  as Returning_Customer_Pct
+	FROM
+(
+SELECT
+	vi.visit_id,
+	ve.vet_id,
+	ve.vet_first_name,
+	ve.vet_last_name,
+	row_number() over (partition by vi.vet_id,cu.customer_id order by vi.visit_date) as visit_rank
+FROM
+	pet.visits as vi
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+INNER JOIN
+	pet.customers as cu
+ON
+	pe.owner_id = cu.customer_id
+INNER JOIN
+	pet.vets as ve
+ON
+	vi.vet_id = ve.vet_id
+	) as rank_table
+GROUP BY
+	1,2
+ORDER BY
+	vet_id;
+  
+```  
+  
+  
+-- Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
+  
+```sql  
+WITH visit_return as (
+
+SELECT
+	vi.visit_id,
+	ve.vet_id,
+	ve.vet_first_name,
+	ve.vet_last_name,
+	count(cast(concat(vi.pet_id,vi.vet_id) as int)) over (partition by vi.pet_id order by vi.visit_date) as Returning_visits,
+	rank() over (partition by vi.pet_id,vi.vet_id order by vi.visit_date) as same_vet_return_count
+FROM
+	pet.visits as vi
+INNER JOIN
+	pet.vets as ve
+ON
+	vi.vet_id = ve.vet_id)
+	
+SELECT
+	vet_id,
+	concat(vet_first_name,' ',vet_last_name),	
+	count(visit_id) as Total_Returned_visits,
+	count(case when returning_visits > 1 and same_vet_return_count = 1 then 1 else null end) as Switched_Return_visits,
+	count(case when returning_visits > 1 and same_vet_return_count <> 1 then 1 else null end) as Retained_Returned_visits
+	
+FROM
+	visit_return
+WHERE
+	returning_visits = 2
+GROUP BY
+	1,2;
+```  
+  
+
+--Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
+  
+```sql
+DROP TABLE IF EXISTS prescriptions_agg;
+
+CREATE TEMPORARY TABLE prescriptions_agg as
+SELECT
+	visit_id,
+	sum(qty) as Qty,
+	sum(charges) as Charges
+FROM
+	pet.prescriptions
+GROUP BY
+	1;
+	
+SELECT
+	ve.vet_id,
+	ve.vet_first_name||' '||ve.vet_last_name as Vet_Name,
+	coalesce(sum(vi.charges),0) as Visit_Charges,
+	coalesce(sum(vi.discount),0) as Discounts,
+	coalesce(sum(pr.charges),0) as Prescription_Charges,
+	coalesce(sum(vi.charges),0) - coalesce(sum(vi.discount),0) + coalesce(sum(pr.charges),0) as Total_Revenue
+FROM
+	pet.visits as vi
+LEFT JOIN
+	prescriptions_agg as pr
+ON
+	vi.visit_id = pr.visit_id
+INNER JOIN
+	pet.vets as ve
+ON
+	vi.vet_id = ve.vet_id
+GROUP BY
+	1,2
+ORDER BY
+	6 DESC;
+```  
      
 ## Pet Analysis  
-   
-     
-## Customer Analysis
 
+-- Q1) What are the top 3 dog and cat breeds (Show Revenue and % of Total Pet Type (i.e. dog,cat) Revenue)  
+```sql
+WITH breed_wise_revenue as (
+SELECT
+	pe.breed,
+	pe.pet_type,
+	coalesce(sum(vi.charges),0) - coalesce(sum(vi.discount),0) + coalesce(sum(pr.charges),0) as Total_Breed_Revenue,
+	sum(coalesce(sum(vi.charges),0) - coalesce(sum(vi.discount),0) + coalesce(sum(pr.charges),0))over(partition by pet_type) as Total_Pet_Revenue,
+	rank() over (partition by pet_type order by coalesce(sum(vi.charges),0) - coalesce(sum(vi.discount),0) + coalesce(sum(pr.charges),0) DESC) as Revenue_Rank
+FROM
+	pet.visits as vi
+LEFT JOIN
+	prescriptions_agg as pr
+ON
+	vi.visit_id = pr.visit_id
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+GROUP BY
+	1,2
+ORDER BY 4)
+
+SELECT
+	pet_type,
+	breed,
+	revenue_rank,
+	total_breed_revenue,
+	total_pet_revenue,
+	round(100*total_breed_revenue/total_pet_revenue,2)||'%' as Share_of_Revenue
+	
+	
+FROM
+	breed_wise_revenue
+WHERE
+	Revenue_Rank in (1,2,3)
+ORDER BY
+	1,3
+	;
+```  
+
+-- Q2) Which breed (cat or dog) has highest prescription drug issuance?  
+
+```sql
+SELECT
+	pe.breed,
+	pe.pet_type,
+	sum(pr.qty) as Qty,
+	sum(pr.charges) as Charges
+FROM
+	pet.visits as vi
+INNER JOIN
+	pet.prescriptions as pr
+ON
+	vi.visit_id = pr.visit_id
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+GROUP BY
+	1,2
+ORDER BY
+	4 DESC
+LIMIT 1;
+```  
+  
+-- Q3) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
+
+```sql
+SELECT 
+	pe.neutered,
+	count(distinct pe.pet_id) as No_of_Pets,
+	round(count(vi.visit_id)::NUMERIC/count(distinct pe.pet_id),2)  as No_Of_Visits_per_pet,
+	round(sum(pr.charges)/count(distinct pe.pet_id),2)  as Prescrption_Charges_per_Pet
+	
+FROM
+	pet.visits as vi
+LEFT JOIN
+	prescriptions_agg as pr
+ON
+	vi.visit_id = pr.visit_id
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+INNER JOIN
+	pet.customers as cu
+ON
+	pe.owner_id = cu.customer_id
+GROUP BY
+	1;
+
+-- Q 3b) List of customer email_ids with non-neutered pets
+
+SELECT 
+	cu.email as Customer_email,
+	pe.neutered as Neutered_status
+FROM
+	pet.customers as cu
+INNER JOIN
+	pet.pets as pe
+ON
+	cu.customer_id = pe.owner_id
+WHERE
+	pe.neutered = 'N';
+```   
+     
+## Customer Analysis  
+
+-- Q1) How many new customers in 2020 returned in 2021?
+  
+```sql  
+WITH new_return_customers as (
+SELECT
+	cu.customer_id,
+	extract (year from (min(visit_date))) ,
+	extract (year from (max(visit_date)))as Year_of_Visit, 
+	case when extract (year from (max(visit_date)))>extract (year from (min(visit_date))) then 1 else null end as Returning_Customer,
+	case when extract (year from (max(visit_date)))=extract (year from (min(visit_date))) then 1 else null end as New_Customer
+FROM
+	pet.customers as cu
+INNER JOIN
+	pet.pets as pe
+ON
+	cu.customer_id = pe.owner_id
+INNER JOIN
+	pet.visits as vi
+ON
+	pe.pet_id = vi.pet_id
+GROUP BY
+	1
+ORDER BY
+	2 DESC,3)
+
+
+SELECT
+	Year_of_Visit,
+	count(nr.Returning_Customer) as Returning_Customers,
+	count(nr.New_Customer) as New_Customers
+	
+FROM
+	new_return_customers as nr
+	
+GROUP BY
+	1
+	
+;
+```  
+
+-- Q2) Which Provinces have prescription charges that are above National average?
+  
+```sql  
+With provincial_prescriptions as (
+
+SELECT 	
+	cu.province,
+	sum(pr.charges) as Pres_Charges
+FROM 
+	pet.visits as vi
+INNER JOIN
+	pet.prescriptions as pr
+ON
+	vi.visit_id = pr.visit_id
+INNER JOIN
+	pet.pets as pe
+ON
+	vi.pet_id = pe.pet_id
+INNER JOIN
+	pet.customers as cu
+ON
+	pe.owner_id = cu.customer_id
+GROUP BY
+	1
+)
+
+SELECT 	
+	province,
+	pres_charges,
+	'Above Average' as Prescriptions
+FROM 
+	provincial_prescriptions
+GROUP BY
+	1,2
+HAVING
+	sum(pres_charges)>(SELECT avg(pres_charges) FROM provincial_prescriptions)
+
+	;
+```	
+	
+-- Q3) What % of customers have more than 1 pet and how is their average revenue compared to customer with one pet?
+  
+```sql
+SELECT
+	count(Single_Pet_Owners) as Single_Pet_Owners,
+	round(100*count(Single_Pet_Owners)::NUMERIC/count(distinct owner_id),2) as single_pct,
+	count(Multiple_Pet_Owners) as Multiple_Pet_Owners,
+	round(100*count(Multiple_Pet_Owners)::NUMERIC/count(distinct owner_id),2) as multiple_pct
+FROM 
+(
+SELECT
+	pe.owner_id,
+	pe.pet_id,
+	count(pe.pet_id) over (partition by pe.owner_id) as pet_counts,
+	row_number() over (partition by pe.owner_id) as row_counts,
+	case when count(pe.pet_id) over (partition by pe.owner_id)=1 then 1 else null end as Single_Pet_Owners,
+	case when count(pe.pet_id) over (partition by pe.owner_id)>1 and row_number() over (partition by pe.owner_id)=1 then 1 else null end as Multiple_Pet_Owners
+FROM
+	pet.pets as pe
+ORDER BY
+	1
+) as pet_owners
+```
 
