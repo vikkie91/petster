@@ -485,6 +485,8 @@ GROUP BY
 ![Customer Analysis - Q1](https://user-images.githubusercontent.com/99361886/157280449-04b5eeb3-6a1a-4d89-b32d-042ea8e84523.png)  
 
 ### Insights & Action  
+- 52 out of 106 (49%) customers who made a visit in 2020 came back in 2021  
+- Business can send promotional offers to the remaining 51% incentivizing them to make a visit in 2021 
 
   
 
@@ -528,7 +530,12 @@ HAVING
 	;
 ```  
 ### Output  
-![Customer Analysis - Q2](https://user-images.githubusercontent.com/99361886/157280516-eeca1b61-a77f-49a4-bd9a-e877bbef3858.png)
+![Customer Analysis - Q2](https://user-images.githubusercontent.com/99361886/157280516-eeca1b61-a77f-49a4-bd9a-e877bbef3858.png)  
+
+### Insights & Action  
+- Business needs to ensure adequate stock of meds in these 3 provinces
+
+
 
 	
 	
@@ -556,7 +563,11 @@ ORDER BY
 ) as pet_owners
 ```  
 ### Output  
-![Customer Analysis - Q3](https://user-images.githubusercontent.com/99361886/157280551-1ca0fb39-e0f2-45b9-9b75-59038cc7012b.png)
+![Customer Analysis - Q3](https://user-images.githubusercontent.com/99361886/157280551-1ca0fb39-e0f2-45b9-9b75-59038cc7012b.png)  
+
+### Insights & Action  
+- Though owners with multiple pets only account for 16% of total customers it does not make them less important As a next step, we can try to understand the average lifetime value of single vs multiple pet owners from the two years of data and see what is the delta in revenue they generate over single pet owners
+- If multiple pet ownership is highly profitable for the business, it can incentivize single pet owners to get more pets by offering discounts on the subsequent pet
 
 
 
