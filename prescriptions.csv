@@ -1,0 +1,49 @@
+visit_id,prescription,qty,charges
+1,NexGard,1,78
+4,NexGard,2,156
+7,Heartgard Plus Chewables,1,43.2
+23,Heartgard Plus Chewables,2,86.4
+45,Revolution,2,202
+45,K9 Advantix II,2,22
+55,K9 Advantix II,1,11
+52,Revolution,1,101
+86,K9 Advantix II,1,11
+86,Trifexis,1,34.3
+123,Trifexis,4,137.2
+125,Trifexis,4,137.2
+128,Bravecto,4,44
+144,Ivermectin/Pyrantel Generic to Heartgard Plus,4,60
+165,Frontline Plus,2,24
+166,Bravecto,2,22
+180,Bravecto,3,33
+182,Ivermectin/Pyrantel Generic to Heartgard Plus,4,60
+182,Heartgard Plus Chewables,6,259.2
+199,Heartgard Plus Chewables,7,302.4
+201,Advantage II,2,42.2
+203,Advantage II,2,42.2
+203,Ivermectin/Pyrantel Generic to Heartgard Plus,2,30
+223,Ivermectin/Pyrantel Generic to Heartgard Plus,1,15
+244,Sentinel,1,34.5
+247,Revolution,1,101
+250,K9 Advantix II,1,11
+252,Trifexis,3,102.9
+255,Trifexis,4,137.2
+258,Trifexis,4,137.2
+260,Bravecto,4,44
+261,Ivermectin/Pyrantel Generic to Heartgard Plus,2,30
+262,Frontline Plus,2,24
+263,Bravecto,2,22
+264,Bravecto,3,33
+265,Ivermectin/Pyrantel Generic to Heartgard Plus,3,45
+266,Heartgard Plus Chewables,3,129.6
+267,Heartgard Plus Chewables,6,259.2
+268,Revolution,5,505
+270,K9 Advantix II,5,55
+270,Trifexis,4,137.2
+274,Trifexis,4,137.2
+277,Trifexis,3,102.9
+283,Bravecto,2,22
+285,Ivermectin/Pyrantel Generic to Heartgard Plus,2,30
+290,Frontline Plus,2,24
+290,Bravecto,2,22
+291,Bravecto,2,22
