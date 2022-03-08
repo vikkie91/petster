@@ -566,7 +566,7 @@ ORDER BY
 ![Customer Analysis - Q3](https://user-images.githubusercontent.com/99361886/157280551-1ca0fb39-e0f2-45b9-9b75-59038cc7012b.png)  
 
 ### Insights & Action  
-- Though owners with multiple pets only account for 16% of total customers it does not make them less important As a next step, we can try to understand the average lifetime value of single vs multiple pet owners from the two years of data and see what is the delta in revenue they generate over single pet owners
+- Though owners with multiple pets only account for 16% of total customers it does not make them less important. As a next step, we can try to understand the average lifetime value of single vs multiple pet owners from the two years of data and see what is the delta in revenue they generate over single pet owners
 - If multiple pet ownership is highly profitable for the business, it can incentivize single pet owners to get more pets by offering discounts on the subsequent pet
 
 
