@@ -130,7 +130,7 @@ ALTER TABLE pet.visits
 
 ## Vet Analysis  
 
--- Q1) Which vet has the highest vists and largest customer base?
+Q1) Which vet has the highest vists and largest customer base?
   
 ```sql  
 SELECT
@@ -169,7 +169,7 @@ LIMIT 1
 - The business also has opportunity to follow up with potential customers (who signed up, visited website) but are yet to make a visit  
 
 
--- Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
+Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
   
 ```sql
 SELECT 
@@ -217,7 +217,7 @@ ORDER BY
 - This gives us the opportunity to send a questionnaire to first-time customers to rate their experience and understand any issues and use the feedback to coach/train vets on customer experience  
 
   
--- Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
+Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
   
 ```sql  
 WITH visit_return as (
@@ -257,7 +257,7 @@ GROUP BY
 - As an example, we see that out of the 8 patients who made their subsequent visit with Dr.Emma Glacer, only 2 of them had made their initial visit with her. The remaining 6 had their inital visit with another vet
 - Since switched visits are much higher than retained visits for all vets, this gives us the opportunity to understand if there is an issue of vet availability during re-booking or any other issue preventing them from going back to the same vet  
 
---Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
+Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
   
 ```sql
 DROP TABLE IF EXISTS prescriptions_agg;
@@ -306,7 +306,7 @@ ORDER BY
       
 ## Pet Analysis  
 
--- Q1) What are the top 3 dog and cat breeds (Show Revenue and % of Total Pet Type (i.e. dog,cat) Revenue)  
+Q1) What are the top 3 dog and cat breeds (Show Revenue and % of Total Pet Type (i.e. dog,cat) Revenue)  
 ```sql
 WITH breed_wise_revenue as (
 SELECT
@@ -354,7 +354,7 @@ ORDER BY
 - Given the high share of total sales, the business can review to see if all vets have the capability to treat these cat breeds ,and if not, hire someone who specializes in these breeds  
 
   
--- Q2) Which breed (cat or dog) has highest prescription drug issuance?  
+Q2) Which breed (cat or dog) has highest prescription drug issuance?  
 
 ```sql
 SELECT
@@ -385,7 +385,7 @@ LIMIT 1;
 - The business needs to ensure that the meds which are prescribed most often for beagles are in stock  
 
   
--- Q3a) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
+Q3a) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
 
 ```sql
 SELECT 
@@ -418,7 +418,7 @@ GROUP BY
 - Though it is not very significant, pets that are not neutered tend to have more number of visits and need of prescription drugs 
 
 
--- Q 3b) List of customer email_ids with non-neutered pets  
+Q3b) List of customer email_ids with non-neutered pets  
 ```sql
 SELECT 
 	cu.email as Customer_email,
@@ -442,7 +442,7 @@ WHERE
      
 ## Customer Analysis  
 
--- Q1) How many new customers in 2020 returned in 2021?
+Q1) How many new customers in 2020 returned in 2021?
   
 ```sql  
 WITH new_return_customers as (
@@ -490,7 +490,7 @@ GROUP BY
 
   
 
--- Q2) Which Provinces have prescription charges that are above National average?
+Q2) Which Provinces have prescription charges that are above National average?
   
 ```sql  
 With provincial_prescriptions as (
@@ -539,7 +539,7 @@ HAVING
 
 	
 	
--- Q3) What % of customers have more than 1 pet and how is their average revenue compared to customer with one pet?
+Q3) What % of customers have more than 1 pet and how is their average revenue compared to customer with one pet?
   
 ```sql
 SELECT
