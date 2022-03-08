@@ -159,7 +159,11 @@ ORDER BY
 LIMIT 1
 ;
   
-```
+```  
+### Output  
+![Vet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279419-a32d64ce-03b0-4e93-925b-4a03e800af31.png)
+
+
 
 -- Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
   
@@ -200,6 +204,10 @@ ORDER BY
 	vet_id;
   
 ```  
+### Output  
+
+![Vet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279461-d0ffe96d-f00b-4e45-aec5-3ee7f766dcdc.png)
+
   
   
 -- Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
@@ -235,6 +243,10 @@ WHERE
 GROUP BY
 	1,2;
 ```  
+### Output  
+![Vet Analysis - Q3](https://user-images.githubusercontent.com/99361886/157279503-94fa5b77-7c29-4140-8b9d-a9f1a7e8561e.png)
+
+  
   
 
 --Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
@@ -274,6 +286,10 @@ GROUP BY
 ORDER BY
 	6 DESC;
 ```  
+### Output  
+![Vet Analysis - Q4](https://user-images.githubusercontent.com/99361886/157279578-285a459a-078c-47b1-93ae-4bbf0bf7c002.png)
+
+  
      
 ## Pet Analysis  
 
@@ -317,6 +333,10 @@ ORDER BY
 	1,3
 	;
 ```  
+### Output  
+![Pet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279934-74a6b565-d9ad-4208-9c5f-4b1806339c5f.png)
+
+  
 
 -- Q2) Which breed (cat or dog) has highest prescription drug issuance?  
 
@@ -342,8 +362,12 @@ ORDER BY
 	4 DESC
 LIMIT 1;
 ```  
+### Output  
+![Pet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279968-3b1517e8-5703-4c1f-96eb-f6ece3150c19.png)
+
   
--- Q3) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
+  
+-- Q3a) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
 
 ```sql
 SELECT 
@@ -368,9 +392,13 @@ ON
 	pe.owner_id = cu.customer_id
 GROUP BY
 	1;
+```  
+### Output  
+![Pet Analysis - Q3a](https://user-images.githubusercontent.com/99361886/157280313-bc1a3c08-f534-4389-8008-33bd78f03edc.png)
 
--- Q 3b) List of customer email_ids with non-neutered pets
 
+-- Q 3b) List of customer email_ids with non-neutered pets  
+```sql
 SELECT 
 	cu.email as Customer_email,
 	pe.neutered as Neutered_status
@@ -382,7 +410,10 @@ ON
 	cu.customer_id = pe.owner_id
 WHERE
 	pe.neutered = 'N';
-```   
+```  
+### Output (First 10 rows)  
+![Pet Analysis - Q3b](https://user-images.githubusercontent.com/99361886/157280343-e54da1e0-9d5f-4501-970e-8078711fb737.png)
+   
      
 ## Customer Analysis  
 
@@ -425,6 +456,9 @@ GROUP BY
 	
 ;
 ```  
+### Output  
+![Customer Analysis - Q1](https://user-images.githubusercontent.com/99361886/157280449-04b5eeb3-6a1a-4d89-b32d-042ea8e84523.png)
+  
 
 -- Q2) Which Provinces have prescription charges that are above National average?
   
@@ -464,7 +498,11 @@ HAVING
 	sum(pres_charges)>(SELECT avg(pres_charges) FROM provincial_prescriptions)
 
 	;
-```	
+```  
+### Output  
+![Customer Analysis - Q2](https://user-images.githubusercontent.com/99361886/157280516-eeca1b61-a77f-49a4-bd9a-e877bbef3858.png)
+
+	
 	
 -- Q3) What % of customers have more than 1 pet and how is their average revenue compared to customer with one pet?
   
@@ -488,5 +526,9 @@ FROM
 ORDER BY
 	1
 ) as pet_owners
-```
+```  
+### Output  
+![Customer Analysis - Q3](https://user-images.githubusercontent.com/99361886/157280551-1ca0fb39-e0f2-45b9-9b75-59038cc7012b.png)
+
+
 
