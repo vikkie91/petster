@@ -165,7 +165,7 @@ LIMIT 1
   
 ### Insights & Action  
 - We can see, even for the vet with highest visits it is only 36 for 2 years which roughly translates to one visit every 3 week
-- The business has the opportunity to follow up and reminders for annual checkups and vaccinations to existing customers to increase visits
+- The business has the opportunity to follow up and send reminders for annual checkups and vaccinations to existing customers to increase visits
 - The business also has opportunity to follow up with potential customers (who signed up, visited website) but are yet to make a visit  
 
 
