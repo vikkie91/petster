@@ -1,5 +1,5 @@
 # Petster
-Sample Vet based DB  
+Sample Vet DB  
   
 **Scope:**  
 - The intention of this README file is to provide a step-by-step tutorial on how I created this DB by taking publicly available datasets and modifying/adding additional information so that it can be utilized to query and provide the business with actionable insights  
