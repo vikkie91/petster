@@ -161,8 +161,12 @@ LIMIT 1
   
 ```  
 ### Output  
-![Vet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279419-a32d64ce-03b0-4e93-925b-4a03e800af31.png)
-
+![Vet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279419-a32d64ce-03b0-4e93-925b-4a03e800af31.png)  
+  
+### Insights & Action  
+- We can see, even for the vet with highest visits it is only 36 for 2 years which roughly translates to one visit every 3 week
+- The business has the opportunity to follow up and reminders for annual checkups and vaccinations to existing customers to increase visits
+- The business also has opportunity to follow up with potential customers (who signed up, visited website) but are yet to make a visit  
 
 
 -- Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
@@ -206,9 +210,12 @@ ORDER BY
 ```  
 ### Output  
 
-![Vet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279461-d0ffe96d-f00b-4e45-aec5-3ee7f766dcdc.png)
+![Vet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279461-d0ffe96d-f00b-4e45-aec5-3ee7f766dcdc.png)  
 
-  
+### Insights & Action
+- Here we see that hardly 1 in 5 customers make a subsequent visit. This is across the board with some vets have slightly better return rate than others.
+- This gives us the opportunity to send a questionnaire to first-time customers to rate their experience and understand any issues and use the feedback to coach/train vets on customer experience  
+
   
 -- Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
   
@@ -246,8 +253,9 @@ GROUP BY
 ### Output  
 ![Vet Analysis - Q3](https://user-images.githubusercontent.com/99361886/157279503-94fa5b77-7c29-4140-8b9d-a9f1a7e8561e.png)
 
-  
-  
+### Insights & Action  
+- As an example, we see that out of the 8 patients who made their subsequent visit with Dr.Emma Glacer, only 2 of them had made their initial visit with her. The remaining 6 had their inital visit with another vet
+- Since switched visits are much higher than retained visits for all vets, this gives us the opportunity to understand if there is an issue of vet availability during re-booking or any other issue preventing them from going back to the same vet  
 
 --Q4) What is the Total Revenue (visit revenue + prescription revenue – discount) brought by each vet? 
   
@@ -287,10 +295,15 @@ ORDER BY
 	6 DESC;
 ```  
 ### Output  
-![Vet Analysis - Q4](https://user-images.githubusercontent.com/99361886/157279578-285a459a-078c-47b1-93ae-4bbf0bf7c002.png)
+![Vet Analysis - Q4](https://user-images.githubusercontent.com/99361886/157279578-285a459a-078c-47b1-93ae-4bbf0bf7c002.png)  
 
-  
-     
+### Insights & Action  
+- The vet with highest total revenue has ~20% of his revenue attributed to prescription sales
+- The business needs to ensure other vets are using the available resources to prescribe meds (when necessary)
+- The business can also get feedback from vets if they are facing any issues with respect to availability of stock, brand, etc.  
+
+
+      
 ## Pet Analysis  
 
 -- Q1) What are the top 3 dog and cat breeds (Show Revenue and % of Total Pet Type (i.e. dog,cat) Revenue)  
@@ -334,10 +347,13 @@ ORDER BY
 	;
 ```  
 ### Output  
-![Pet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279934-74a6b565-d9ad-4208-9c5f-4b1806339c5f.png)
+![Pet Analysis - Q1](https://user-images.githubusercontent.com/99361886/157279934-74a6b565-d9ad-4208-9c5f-4b1806339c5f.png)  
+
+### Insights & Action  
+- We see that the Top 3 cat breeds contribute to ~43% of the total cat sales which is significantly higher than Top 3 dog breed revenue share (~10%)
+- Given the high share of total sales, the business can review to see if all vets have the capability to treat these cat breeds ,and if not, hire someone who specializes in these breeds  
 
   
-
 -- Q2) Which breed (cat or dog) has highest prescription drug issuance?  
 
 ```sql
@@ -363,9 +379,11 @@ ORDER BY
 LIMIT 1;
 ```  
 ### Output  
-![Pet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279968-3b1517e8-5703-4c1f-96eb-f6ece3150c19.png)
+![Pet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279968-3b1517e8-5703-4c1f-96eb-f6ece3150c19.png)  
 
-  
+### Insights & Action  
+- The business needs to ensure that the meds which are prescribed most often for beagles are in stock  
+
   
 -- Q3a) The marketing team wants to understand if neutering has an impact on frequency of visits and prescriptions. If so they would like to use this data to send an email campaign to list of customers with non-neutered pets asking them to get their pets neutered with their vets  
 
@@ -394,7 +412,10 @@ GROUP BY
 	1;
 ```  
 ### Output  
-![Pet Analysis - Q3a](https://user-images.githubusercontent.com/99361886/157280313-bc1a3c08-f534-4389-8008-33bd78f03edc.png)
+![Pet Analysis - Q3a](https://user-images.githubusercontent.com/99361886/157280313-bc1a3c08-f534-4389-8008-33bd78f03edc.png)  
+
+### Insights & Action  
+- Though it is not very significant, pets that are not neutered tend to have more number of visits and need of prescription drugs 
 
 
 -- Q 3b) List of customer email_ids with non-neutered pets  
@@ -412,8 +433,12 @@ WHERE
 	pe.neutered = 'N';
 ```  
 ### Output (First 10 rows)  
-![Pet Analysis - Q3b](https://user-images.githubusercontent.com/99361886/157280343-e54da1e0-9d5f-4501-970e-8078711fb737.png)
-   
+![Pet Analysis - Q3b](https://user-images.githubusercontent.com/99361886/157280343-e54da1e0-9d5f-4501-970e-8078711fb737.png)  
+
+### Insights & Action  
+- As a next step, the business can find out where these customers reside and in the email provide the address of the closest vets/clinics that provide neutering services
+
+
      
 ## Customer Analysis  
 
@@ -457,7 +482,10 @@ GROUP BY
 ;
 ```  
 ### Output  
-![Customer Analysis - Q1](https://user-images.githubusercontent.com/99361886/157280449-04b5eeb3-6a1a-4d89-b32d-042ea8e84523.png)
+![Customer Analysis - Q1](https://user-images.githubusercontent.com/99361886/157280449-04b5eeb3-6a1a-4d89-b32d-042ea8e84523.png)  
+
+### Insights & Action  
+
   
 
 -- Q2) Which Provinces have prescription charges that are above National average?
