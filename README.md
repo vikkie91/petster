@@ -213,7 +213,7 @@ ORDER BY
 ![Vet Analysis - Q2](https://user-images.githubusercontent.com/99361886/157279461-d0ffe96d-f00b-4e45-aec5-3ee7f766dcdc.png)  
 
 ### Insights & Action
-- Here we see that hardly 1 in 5 customers make a subsequent visit. This is across the board with some vets have slightly better return rate than others.
+- Here we see that hardly 1 in 5 customers make a subsequent visit. This is across the board with some vets having slightly better return rate than others.
 - This gives us the opportunity to send a questionnaire to first-time customers to rate their experience and understand any issues and use the feedback to coach/train vets on customer experience  
 
   
