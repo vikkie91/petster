@@ -485,7 +485,7 @@ GROUP BY
 ![Customer Analysis - Q1](https://user-images.githubusercontent.com/99361886/157280449-04b5eeb3-6a1a-4d89-b32d-042ea8e84523.png)  
 
 ### Insights & Action  
-- 52 out of 106 (49%) customers who made a visit in 2020 came back in 2021  
+- 52 out of 106 (52+56) customers who made a visit in 2020 came back in 2021  
 - Business can send promotional offers to the remaining 51% incentivizing them to make a visit in 2021 
 
   
