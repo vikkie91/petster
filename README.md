@@ -214,7 +214,7 @@ ORDER BY
 
 ### Insights & Action
 - Here we see that hardly 1 in 5 customers make a subsequent visit. This is across the board with some vets having slightly better return rate than others.
-- This gives us the opportunity to send a questionnaire to first-time customers to rate their experience and understand any issues and use the feedback to coach/train vets on customer experience  
+- This gives us the opportunity to send a questionnaire to first-time customers to rate their experience and understand any issues and use the feedback to coach/train vets on customer experience. Through the questionnaire we can also understand if the low return rate is due to any software bugs or issues preventing them from booking or affecting their site/app experience  
 
   
 Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?
