@@ -10,7 +10,7 @@ Sample Vet DB
   
 **Methodology:**  
 - After downloading the publicly available sample csv files, I added/modified the data to ensure relevancy for my analyses
-- In pgadmin, I created a new DB (petster) and schema (pet)
+- In pgadmin (postgres), I created a new DB (petster) and schema (pet)
 - Using the below DDL script that I created, I was able to create 5 tables (pets, vets, customers, visits and prescriptions) and import the data from the csv files   
 
 ```sql
