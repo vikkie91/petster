@@ -24,8 +24,6 @@ DROP TABLE IF EXISTS pet.customers;
 
 --Pets Table
 
-DROP TABLE IF EXISTS pet.pets;
-
 CREATE TABLE pet.pets
 (
 	pet_id SERIAL PRIMARY KEY,
@@ -43,8 +41,6 @@ copy pet.pets(owner_id,pet_name,pet_type,breed,colour,sex,neutered,microchip) FR
 
 
 --Customers Table
-
-DROP TABLE IF EXISTS pet.customers;
 
 CREATE TABLE pet.customers
 (
@@ -64,8 +60,6 @@ copy pet.customers(first_name,last_name,address,city,province,postal,phone,email
 
 --Visits Table
 
-DROP TABLE IF EXISTS pet.visits;
-
 CREATE TABLE pet.visits
 (
 	visit_id SERIAL PRIMARY KEY,
@@ -81,8 +75,6 @@ copy pet.visits(pet_id,vet_id,visit_date,charges,discount,offer_desc) FROM '...\
 
 --Vets Table
 
-DROP TABLE IF EXISTS pet.vets;
-
 CREATE TABLE pet.vets
 (
 	vet_id SERIAL PRIMARY KEY,
@@ -96,8 +88,6 @@ CREATE TABLE pet.vets
 copy pet.vets(vet_first_name,vet_last_name,province,vet_license_no,salary) FROM '...\vets.csv' DELIMITER ',' CSV HEADER;
 
 --Prescriptions Table
-
-DROP TABLE IF EXISTS pet.prescriptions;
 
 CREATE TABLE pet.prescriptions
 (
