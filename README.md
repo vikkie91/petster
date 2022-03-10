@@ -121,7 +121,7 @@ ALTER TABLE pet.visits
 
 ## Vet Analysis  
 
-Q1) Which vet has the highest vists and largest customer base?
+_Q1) Which vet has the highest vists and largest customer base?
   
 ```sql  
 SELECT
@@ -160,7 +160,7 @@ LIMIT 1
 - The business also has opportunity to follow up with potential customers (who signed up, visited website) but are yet to make a visit  
 
 
-Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
+__Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)
   
 ```sql
 SELECT 
