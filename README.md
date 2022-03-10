@@ -167,9 +167,9 @@ SELECT
 	vet_id,
 	vet_first_name||' '||vet_last_name as Vet_Name,
 	count(case when visit_rank = 1 then 1 else null end)  as New_Customer_Count,
-	concat(round(100*cast(count(case when visit_rank = 1 then 1 else null end) as decimal)/(count(case when visit_rank = 1 then 1 else null end) + count(case when visit_rank > 1 then 1 else null end)),2),'%')  as New_Customer_Pct,
+	concat(round(100*cast(count(case when visit_rank = 1 then 1 else null end) as decimal)/(count(visit_rank)),2),'%')  as New_Customer_Pct,
 	count(case when visit_rank > 1 then 1 else null end)  as Returning_Customers,
-	concat(round(100*cast(count(case when visit_rank > 1 then 1 else null end) as decimal)/(count(case when visit_rank = 1 then 1 else null end) + count(case when visit_rank > 1 then 1 else null end)),2),'%')  as Returning_Customer_Pct
+	concat(round(100*cast(count(case when visit_rank > 1 then 1 else null end) as decimal)/(count(visit_rank)),2),'%')  as Returning_Customer_Pct
 	FROM
 (
 SELECT
@@ -197,7 +197,7 @@ GROUP BY
 	1,2
 ORDER BY
 	vet_id;
-  
+
 ```  
 ### Output  
 
