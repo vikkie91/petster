@@ -158,8 +158,8 @@ LIMIT 1
 - We can see, even for the vet with the highest number of visits, is only 36 for 2 years which roughly translates to one visit every 3 week
 - The business has the opportunity to follow up and send reminders for annual checkups and vaccinations to existing customers to increase visits
 - The business also has opportunity to follow up with potential customers (who signed up, visited website) but are yet to make a visit  
-
-
+  
+  
 *Q2) The Ops team would like to know how efficient each vet is in retaining customers. For this they would like to know the new vs repeat customers by vet (count & percentage)*
   
 ```sql
