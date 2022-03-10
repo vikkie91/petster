@@ -7,6 +7,7 @@ Sample Vet DB
 - I have used a variety of SQL commands and features including, but not limited to - Joins, Sub-query, CTE, Temporary Table, Windows Functions, Aggregate Functions, Date Functions, String Functions and CASE statements  
 - There are three broad classifications of the business questions - Vet Analysis, Pet Analysis and Customer Analysis  
 - Under each business question I have provided the SQL query, output and my insights & recommendations  
+- Note: The data is for 2 calendar years (2020 and 2021) only  
   
 **Methodology:**  
 - After downloading the publicly available sample csv files, I added/modified the data to ensure relevancy for my analyses
