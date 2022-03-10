@@ -211,6 +211,7 @@ ORDER BY
 *Q3) The Ops team would also like to know, for each vet, how many customers came back to them and how many went to another vet for their subsequent appointment?*
   
 ```sql  
+
 WITH visit_return as (
 
 SELECT
@@ -231,8 +232,8 @@ SELECT
 	vet_id,
 	concat(vet_first_name,' ',vet_last_name),	
 	count(visit_id) as Total_Returned_visits,
-	count(case when returning_visits > 1 and same_vet_return_count = 1 then 1 else null end) as Switched_Return_visits,
-	count(case when returning_visits > 1 and same_vet_return_count <> 1 then 1 else null end) as Retained_Returned_visits
+	count(case when same_vet_return_count = 1 then 1 else null end) as Switched_Return_visits,
+	count(case when same_vet_return_count <> 1 then 1 else null end) as Retained_Returned_visits
 	
 FROM
 	visit_return
